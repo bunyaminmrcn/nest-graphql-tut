@@ -11,14 +11,17 @@ export class PetsService {
 
     }
 
-    async createPet(createPetInput : CreatePetInput): Promise<Pet> {
+    async createPet(createPetInput: CreatePetInput): Promise<Pet> {
         const newPet = this.petsRepository.create(createPetInput);
 
         return this.petsRepository.save(newPet);
     }
-    async findAll() : Promise<Pet[]> 
-    {
-        
+    async findAll(): Promise<Pet[]> {
+
         return this.petsRepository.find(); // SELECT * pets
+    }
+
+    findOne(id: number): Promise<Pet> {
+        return this.petsRepository.findOneOrFail({ where: { id } })
     }
 }
